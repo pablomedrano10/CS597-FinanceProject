@@ -15,7 +15,7 @@ from Robinhood import Robinhood
 #Setup
 my_trader = Robinhood()
 #login
-my_trader.login(username="pablomedrano", password="******")
+my_trader.login(username="*****", password="******")
 
 #Get stock information
 #Note: Sometimes more than one instrument may be returned for a given stock symbol
@@ -47,7 +47,7 @@ sell_order = my_trader.place_sell_order(stock_instrument, 1)
 #Setup
 my_trader = Robinhood()
 #login
-my_trader.login(username="pablomedrano", password="******")
+my_trader.login(username="******", password="******")
 
 symbols = ["AAPL", "MSFT", "FB"]
 
