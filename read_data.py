@@ -47,7 +47,7 @@ sell_order = my_trader.place_sell_order(stock_instrument, 1)
 #Setup
 my_trader = Robinhood()
 #login
-my_trader.login(username="pablomedrano", password="Ronda$36192506")
+my_trader.login(username="pablomedrano", password="******")
 
 symbols = ["AAPL", "MSFT", "FB"]
 
@@ -69,5 +69,3 @@ try:
         time.sleep(1)
 except KeyboardInterrupt:
     print('End')
-    
-    
