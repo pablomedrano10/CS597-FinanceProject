@@ -15,7 +15,7 @@ from Robinhood import Robinhood
 #Setup
 my_trader = Robinhood()
 #login
-my_trader.login(username="pablomedrano", password="Ronda$36192506")
+my_trader.login(username="pablomedrano", password="******")
 
 #Get stock information
 #Note: Sometimes more than one instrument may be returned for a given stock symbol
