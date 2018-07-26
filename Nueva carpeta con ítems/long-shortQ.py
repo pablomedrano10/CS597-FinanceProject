@@ -3,7 +3,7 @@
 """
 Created on Sun Jun 24 19:10:19 2018
 
-@author: pablo
+@author: Quantopian
 """
 
 """
@@ -54,17 +54,17 @@ def initialize(context):
     Parameters
     ----------
     context : AlgorithmContext
-        An object that can be used to store state that you want to maintain in 
-        your algorithm. context is automatically passed to initialize, 
+        An object that can be used to store state that you want to maintain in
+        your algorithm. context is automatically passed to initialize,
         before_trading_start, handle_data, and any functions run via schedule_function.
-        context provides the portfolio attribute, which can be used to retrieve information 
+        context provides the portfolio attribute, which can be used to retrieve information
         about current positions.
     """
-    
+
     algo.attach_pipeline(make_pipeline(), 'long_short_equity_template')
 
     # Attach the pipeline for the risk model factors that we
-    # want to neutralize in the optimization step. The 'risk_factors' string is 
+    # want to neutralize in the optimization step. The 'risk_factors' string is
     # used to retrieve the output of the pipeline in before_trading_start below.
     algo.attach_pipeline(risk_loading_pipeline(), 'risk_factors')
 
@@ -105,7 +105,7 @@ def make_pipeline():
     )
 
     universe = QTradableStocksUS()
-    
+
     # We winsorize our factor values in order to lessen the impact of outliers
     # For more information on winsorization, please see
     # https://en.wikipedia.org/wiki/Winsorizing
@@ -115,8 +115,8 @@ def make_pipeline():
 
     # Here we combine our winsorized factors, z-scoring them to equalize their influence
     combined_factor = (
-        value_winsorized.zscore() + 
-        quality_winsorized.zscore() + 
+        value_winsorized.zscore() +
+        quality_winsorized.zscore() +
         sentiment_score_winsorized.zscore()
     )
 
