@@ -14,10 +14,16 @@ import json
 import datetime
 from os import environ
 
-starting_trading_hour = 8
-starting_trading_minute = 30
-ending_trading_hour = 22
-ending_trading_minute = 30
+STARTING_TRADING_HOUR = 8
+STARTING_TRADING_MIN = 30
+ENDING_TRADING_HOUR = 22
+ENDING_TRADING_MIN = 30
+
+def Trading_hours():
+    if (((datetime.datetime.now().hour == 8 and datetime.datetime.now().minute > 30) or datetime.datetime.now().hour > 9) and datetime.datetime.now().hour < 15):
+        return True
+    else:
+        return False
 
 #Connect to RabbitMQ
 connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'localhost'))
@@ -34,18 +40,16 @@ my_trader.login(username = environ.get('RH_USER'), password = environ.get('RH_PA
 symbols = ["AAPL"]
 
 def job():
-    print(type(datetime.datetime.now().hour))
 
-    for stock in symbols:
-        message = []
-        message.append(my_trader.quote_data(stock))
-        pprint(message)
-    channel.basic_publish(exchange='',
-                      routing_key = 'rhdata',
-                      body = json.dumps(message))
-    print("-------------")
-    print("Message Sent!")
-    print("-------------")
+    if Trading_hours() == False:
+        for stock in symbols:
+            message = []
+            message.append(my_trader.quote_data(stock))
+            pprint(message)
+        channel.basic_publish(exchange = '', routing_key = 'rhdata', body = json.dumps(message))
+        print("-------------")
+        print("Message Sent!")
+        print("-------------")
 
     # connection.close()
 
